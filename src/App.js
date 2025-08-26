@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import Topbar from "./components/Topbar";
+import AdminRoutes from "./components/Admin/AdminRoutes";
+import UserRoutes from "./components/UserRoutes";
+import Adminlogin from "./components/Admin/Adminlogin";
+import Footer from "./components/Footer"; // apna footer import karo
 
-function App() {
+const Layout = () => {
+  const location = useLocation();
+  const hideTopbarRoutes = ["/adminlogin"];
+  const isAdminRoute =
+    location.pathname.startsWith("/admin") ||
+    location.pathname === "/adminlogin" ||
+    location.pathname === "/Dashboard";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* Topbar hide karo agar /adminlogin ya /admin/... ho */}
+      {!hideTopbarRoutes.includes(location.pathname) && <Topbar />}
+
+      <Routes>
+        <Route path="/adminlogin" element={<Adminlogin />} />
+      </Routes>
+      <UserRoutes />
+      <AdminRoutes />
+
+      {/* Yaha condition lagayi → sirf user routes pe Footer dikhega */}
+      {!isAdminRoute && <Footer />}
+    </>
   );
-}
+};
+
+const App = () => {
+  return (
+    <Router>
+      <Layout />
+    </Router>
+  );
+};
 
 export default App;
