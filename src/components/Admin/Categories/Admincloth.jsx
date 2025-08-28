@@ -30,6 +30,10 @@ const Categories = [
     value: "Value for Money",
     label: "Value for Money",
   },
+  {
+    value: "",
+    label: "None",
+  },
 ];
 
 const Admincloth = () => {

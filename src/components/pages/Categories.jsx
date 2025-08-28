@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
-import HANUMANJI_IDOL from "../../assets/HANUMANJI_IDOL.jpg";
-import chandan_dhup from "../../assets/chandan_dhup.jpg";
-import mandir_1 from "../../assets/mandir_3.jpg";
+import mandir_1 from "../../assets/mandirs.jpg";
 import amazon_logo from "../../assets/amazon_logo.jpg";
-import book from "../../assets/gita_book.jpg";
-import agarbati from "../../assets/agrbati_sand.jpg";
+import agarbati from "../../assets/agarbati.jpg";
 import rudrakh_mala from "../../assets/Rudraksha_mala.jpg";
-import Ritual from "../../assets/Ritual.jpg";
-import hours from "../../assets/7hourse.jpg";
 import hanumanj from "../../assets/hanumanj.jpg";
-import gift from "../../assets/gift.jpg";
-import pooja_thali from "../../assets/pooja_thali.jpg";
-import rui from "../../assets/rui_ki_batti.jpg";
-import upvash from "../../assets/rakshabandhan/sweets.jpg";
+import gift from "../../assets/gifts.jpg";
+import cloth from "../../assets/cloth.jpg";
+import murtis from "../../assets/murties.jpg";
+import poojaessentials from "../../assets/poojaessentials.jpg";
+import book from "../../assets/books.jpg";
+import homedecorenew from "../../assets/homedecorenew.jpg";
+import vastu from "../../assets/vastu.jpg";
+import dhoopbatti from "../../assets/dhoopbatti.jpg";
+import upvashfood from "../../assets/upvashfood.jpg";
+import poojathali from "../../assets/poojathali.jpg";
+import techwithgod from "../../assets/techwithgod.jpg";
 
 const Categories = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -29,7 +31,7 @@ const Categories = () => {
   const Category = [
     {
       id: 1,
-      image: gift,
+      image: techwithgod,
       heading: "Tech Product",
       subtitel:
         "Item suitable for gifting during Festivals, Wedding, Birthday & more",
@@ -38,7 +40,7 @@ const Categories = () => {
     },
     {
       id: 2,
-      image: pooja_thali,
+      image: poojathali,
       heading: "Pooja Thali",
       subtitel: "Pooja ke liye Thali & Kalash ",
       icon: amazon_logo,
@@ -46,7 +48,7 @@ const Categories = () => {
     },
     {
       id: 3,
-      image: HANUMANJI_IDOL,
+      image: murtis,
       heading: "Murti / Idol",
       subtitel: "Hindu Devi aur Devtao ki murtiya",
       icon: amazon_logo,
@@ -62,7 +64,7 @@ const Categories = () => {
     },
     {
       id: 5,
-      image: rui,
+      image: poojaessentials,
       heading: "Essential Puja Items",
       subtitel:
         "Item suitable for puja like Kumkum, Akshat, Cotton wicks & more",
@@ -96,7 +98,7 @@ const Categories = () => {
     },
     {
       id: 9,
-      image: mandir_1,
+      image: cloth,
       heading: "Cloth",
       subtitel: "Indian traditional Sarees, Dhotis & Kurta",
       icon: amazon_logo,
@@ -104,7 +106,7 @@ const Categories = () => {
     },
     {
       id: 10,
-      image: hours,
+      image: homedecorenew,
       heading: "Home Decore",
       subtitel: "Items like wall hangings with Hindu symbols",
       icon: amazon_logo,
@@ -121,7 +123,7 @@ const Categories = () => {
     },
     {
       id: 12,
-      image: Ritual,
+      image: vastu,
       heading: "Vastu Items",
       subtitel:
         "items used in specitic hindu rituals like Yantras, Havan kunds and more",
@@ -139,7 +141,7 @@ const Categories = () => {
     },
     {
       id: 14,
-      image: chandan_dhup,
+      image: dhoopbatti,
       heading: "Dhoop",
       subtitel: "Chandan ki lakdi ki dhoop",
       icon: amazon_logo,
@@ -147,7 +149,7 @@ const Categories = () => {
     },
     {
       id: 15,
-      image: upvash,
+      image: upvashfood,
       heading: "Upvash Meal",
       subtitel: "Upvas me khane ka Product",
       icon: amazon_logo,

@@ -30,7 +30,9 @@ const Makarsankranti = () => {
           link: item.link,
           icon: amazon_logo,
         }));
-        setGetProduct(formatted);
+        const sorted = formatted.sort((a, b) => b.id - a.id);
+
+        setGetProduct(sorted);
       } else {
         setGetProduct([]);
       }

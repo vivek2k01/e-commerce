@@ -30,6 +30,14 @@ const Categories = [
     value: "Value for Money",
     label: "Value for Money",
   },
+  {
+    value: "Fresh",
+    label: "Fresh",
+  },
+  {
+    value: "",
+    label: "None",
+  },
 ];
 
 const Adminupvashfood = () => {
