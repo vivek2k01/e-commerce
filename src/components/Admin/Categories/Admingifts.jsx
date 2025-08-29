@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import MenuItem from "@mui/material/MenuItem";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Categories = [
   {
@@ -51,6 +52,14 @@ const Admingifts = () => {
   });
   const [counter, setCounter] = useState(1); // ID counter
   const [uploading, setUploading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Filtered items based on search
+  const filteredItems = items.filter(
+    (item) =>
+      item.heading.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.subHeading.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // Load data from Firebase on mount
   useEffect(() => {
@@ -179,11 +188,36 @@ const Admingifts = () => {
       }}
     >
       <Typography>
-        <h1 style={{ fontFamily: "Georgia, serif" }}>Gifts</h1>
+        <h1 style={{ fontFamily: "Georgia, serif" }}>Gifts & festival items</h1>
       </Typography>
 
       {/* Add Button */}
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      {/* Add Button */}
+      {/* Search + Add Button Row */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        {/* Search Box */}
+        <div style={{ display: "flex", gap: "10px", position: "relative" }}>
+          <TextField
+            label="Search"
+            variant="outlined"
+            size="medium"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: window.innerWidth <= 700 ? "100%" : "400px" }}
+          />
+          <div style={{ position: "absolute", right: 10, top: 9 }}>
+            <SearchIcon sx={{ height: "40px", width: "40px" }} />
+          </div>
+        </div>
+
+        {/* Add Button */}
         <Button
           variant="contained"
           style={{
@@ -281,7 +315,7 @@ const Admingifts = () => {
 
       {/* Items List */}
       <div style={{ paddingTop: "15px" }}>
-        {items.map((item, index) => (
+        {filteredItems.map((item, index) => (
           <Box
             key={item.id}
             sx={{

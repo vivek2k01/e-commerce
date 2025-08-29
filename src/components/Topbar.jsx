@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "../assets/logo.jpg";
 import { NavLink } from "react-router-dom";
+import GlobalSearch from "./GlobalSearch";
 
 const Topbar = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -61,7 +62,7 @@ const Topbar = () => {
   return (
     <div
       style={{
-        background: "linear-gradient(to right, #4B2D1A, #3A2517)",
+        background: "linear-gradient(to right, #4B2D1A)",
         padding: "10px 20px",
         position: "fixed",
         top: 0,
@@ -88,7 +89,7 @@ const Topbar = () => {
             cursor: "pointer",
           }}
         />
-        <div></div>
+
         <div></div>
         {isMobile ? (
           <div

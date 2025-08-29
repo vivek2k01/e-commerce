@@ -4,9 +4,33 @@ import Main from "./Main";
 
 const Dashboard = () => {
   return (
-    <div>
-      <Sidebar />
-      <Main />
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        minHeight: "100vh",
+      }}
+    >
+      {/* Sidebar */}
+      <div
+        style={{
+          maxWidth: "30%",
+        }}
+      >
+        <Sidebar />
+      </div>
+
+      {/* Main */}
+      <div
+        style={{
+          flex: "1", // remaining 75%
+          maxWidth: "70%",
+          background: "#fff",
+        }}
+      >
+        <Main />
+      </div>
     </div>
   );
 };

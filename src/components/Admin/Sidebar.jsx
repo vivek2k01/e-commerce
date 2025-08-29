@@ -25,6 +25,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import logo from "../../assets/logo.jpg";
 
 const drawerWidth = 280;
 
@@ -67,13 +68,37 @@ export default function Sidebar() {
           boxSizing: "border-box",
           background: "#4B2D1A",
           color: "#fff",
-          //   marginTop: "90px",
+          marginTop: "90px",
         },
       }}
     >
-      <Box sx={{ overflow: "auto", paddingTop: 10 }}>
+      {/* <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "20px",
+          marginTop: "10px",
+        }}
+      >
+        <img
+          src={logo}
+          alt="ganesh"
+          style={{
+            height: "70px",
+            width: "70px",
+            borderRadius: "50%",
+            cursor: "pointer",
+          }}
+        />
+        <div style={{ fontFamily: "Georgia, serif" }}>
+          <h2>Admin</h2>
+        </div>
+      </div> */}
+      <Box sx={{ overflow: "auto", paddingTop: "10px" }}>
         <List>
           {/* Hindu Festival's */}
+
           <ListItem disablePadding>
             <ListItemButton onClick={() => setFestivalOpen(!festivalOpen)}>
               <ListItemIcon>

@@ -263,17 +263,6 @@ const festival = [
 const images = [backphoto1, somnath1, somnath2, somnath3];
 
 const Home = () => {
-  // props and hooks and variable
-
-  // state
-
-  // lifecycles useeffect
-
-  // functions
-  //  //operational
-  //  // helper
-  //  // render helper
-
   const [currentSlide, setCurrentSlide] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -330,40 +319,9 @@ const Home = () => {
     setCurrent((prev) => (prev - 1 + history.length) % history.length);
   };
 
-  // const [notification, setNotification] = useState(
-  //   "🔔 Special Announcement: Join our online Shravan Shivratri Pooja live on 5th August!"
-  // );
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setNotification(null);
-  //   }, 7000); // hides after 7 sec
-
-  //   return () => clearTimeout(timer);
-  // }, []);
-
   return (
     <div>
-      {/* {notification && (
-        <div
-          style={{
-            backgroundColor: "#fff8e1",
-            color: "#795548",
-            padding: "10px 20px",
-            margin: "20px auto",
-            borderRadius: "8px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            maxWidth: "90%",
-            fontWeight: "bold",
-            textAlign: "center",
-          }}
-        >
-          {notification}
-        </div>
-      )} */}
-
       {/* Slider */}
-
       <img
         src={images[currentSlide]}
         alt="Slider"

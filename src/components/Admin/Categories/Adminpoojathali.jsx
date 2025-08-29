@@ -1,6 +1,6 @@
 import { db } from "../../../firebase";
 import { ref, set, remove, onValue } from "firebase/database";
-
+import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import React, { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
@@ -51,6 +51,15 @@ const Adminpoojathali = () => {
   });
   const [counter, setCounter] = useState(1); // ID counter
   const [uploading, setUploading] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Filtered items based on search
+  const filteredItems = items.filter(
+    (item) =>
+      item.heading.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.subHeading.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // Load data from Firebase on mount
   useEffect(() => {
@@ -182,8 +191,31 @@ const Adminpoojathali = () => {
         <h1 style={{ fontFamily: "Georgia, serif" }}>Puja Thali</h1>
       </Typography>
 
-      {/* Add Button */}
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      {/* Search + Add Button Row */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        {/* Search Box */}
+        <div style={{ display: "flex", gap: "10px", position: "relative" }}>
+          <TextField
+            label="Search"
+            variant="outlined"
+            size="medium"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: window.innerWidth <= 700 ? "100%" : "400px" }}
+          />
+          <div style={{ position: "absolute", right: 10, top: 17 }}>
+            <SearchIcon />
+          </div>
+        </div>
+
+        {/* Add Button */}
         <Button
           variant="contained"
           style={{
@@ -283,7 +315,7 @@ const Adminpoojathali = () => {
 
       {/* Items List */}
       <div style={{ paddingTop: "15px" }}>
-        {items.map((item, index) => (
+        {filteredItems.map((item, index) => (
           <Box
             key={item.id}
             sx={{
