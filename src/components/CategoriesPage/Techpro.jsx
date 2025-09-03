@@ -3,11 +3,24 @@ import amazon_logo from "../../assets/amazon_logo.jpg";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 const Techpro = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [getProduct, setGetProduct] = useState([]);
-  const [loading, setLoading] = useState(true); // <-- loading state
+  const [loading, setLoading] = useState(true);
+
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -33,12 +46,11 @@ const Techpro = () => {
         }));
 
         const sorted = formatted.sort((a, b) => b.id - a.id);
-
         setGetProduct(sorted);
       } else {
         setGetProduct([]);
       }
-      setLoading(false); // <-- data load hone ke baad
+      setLoading(false);
     });
   }, []);
 
@@ -152,6 +164,7 @@ const Techpro = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ textDecoration: "none" }}
+                onClick={(e) => handleProductAnchorClick(e, item.link)}
               >
                 <img
                   src={item.image}
@@ -217,7 +230,7 @@ const Techpro = () => {
                     {item.text}
                   </p>
 
-                  {/* Buy Link */}
+                  {/* Buy Link (same UI) */}
                   <div
                     style={{
                       display: "flex",
@@ -241,6 +254,7 @@ const Techpro = () => {
                         gap: "8px",
                         justifyContent: "center",
                       }}
+                      onClick={(e) => handleProductAnchorClick(e, item.link)}
                     >
                       <span>Buy</span>
                       <img
@@ -259,8 +273,16 @@ const Techpro = () => {
           ))}
         </div>
       )}
+
+      {/* 🔽 ADD: reusable modal include (UI consistent) */}
+      <UserDetailsModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };
-
 export default Techpro;

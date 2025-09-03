@@ -34,6 +34,7 @@ import Adminbook from "./Categories/Adminbook";
 import Admindhoop from "./Categories/Admindhoop";
 import Sidebar from "./Sidebar";
 import AdminFeaturedProducts from "./AdminFeaturedProducts";
+import AdminGetUserData from "./AdminGetUserData";
 
 const AdminRoutes = () => {
   return (
@@ -316,6 +317,15 @@ const AdminRoutes = () => {
           element={
             <ProtectedRoute>
               <AdminFeaturedProducts />
+              <Sidebar />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-GetUserData"
+          element={
+            <ProtectedRoute>
+              <AdminGetUserData />
               <Sidebar />
             </ProtectedRoute>
           }

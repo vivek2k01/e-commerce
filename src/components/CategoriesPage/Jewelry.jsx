@@ -3,11 +3,22 @@ import amazon_logo from "../../assets/amazon_logo.jpg";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 const Jewelry = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [getProduct, setGetProduct] = useState([]);
   const [loading, setLoading] = useState(true); // <-- loading state
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -152,6 +163,7 @@ const Jewelry = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ textDecoration: "none" }}
+                onClick={(e) => handleProductAnchorClick(e, item.link)}
               >
                 <img
                   src={item.image}
@@ -241,6 +253,7 @@ const Jewelry = () => {
                         gap: "8px",
                         justifyContent: "center",
                       }}
+                      onClick={(e) => handleProductAnchorClick(e, item.link)}
                     >
                       <span>Buy</span>
                       <img

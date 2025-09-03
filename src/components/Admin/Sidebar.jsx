@@ -25,7 +25,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import logo from "../../assets/logo.jpg";
+import FolderSharedIcon from "@mui/icons-material/FolderShared";
 
 const drawerWidth = 280;
 
@@ -221,6 +221,17 @@ export default function Sidebar() {
                 <DiamondIcon style={{ color: "#fff" }} />
               </ListItemIcon>
               <ListItemText primary="Most Valuable Product" />
+            </ListItemButton>
+          </ListItem>
+
+          {/* user data */}
+
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate(`/admin-GetUserData`)}>
+              <ListItemIcon>
+                <FolderSharedIcon style={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ListItemText primary="User Data" />
             </ListItemButton>
           </ListItem>
         </List>

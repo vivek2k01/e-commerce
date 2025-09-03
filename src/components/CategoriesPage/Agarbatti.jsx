@@ -3,6 +3,9 @@ import amazon_logo from "../../assets/amazon_logo.jpg";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 const Agarbatti = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -14,6 +17,15 @@ const Agarbatti = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
 
   useEffect(() => {
     const itemsRef = ref(db, "Agarbatti");
@@ -152,6 +164,7 @@ const Agarbatti = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ textDecoration: "none" }}
+                onClick={(e) => handleProductAnchorClick(e, item.link)}
               >
                 <img
                   src={item.image}
@@ -241,6 +254,7 @@ const Agarbatti = () => {
                         gap: "8px",
                         justifyContent: "center",
                       }}
+                      onClick={(e) => handleProductAnchorClick(e, item.link)}
                     >
                       <span>Buy</span>
                       <img
@@ -259,6 +273,14 @@ const Agarbatti = () => {
           ))}
         </div>
       )}
+      {/* 🔽 ADD: reusable modal include (UI consistent) */}
+      <UserDetailsModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

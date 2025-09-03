@@ -174,8 +174,8 @@ const Adminhomedecore = () => {
   return (
     <div
       style={{
-        paddingLeft: "18%",
-        paddingRight: "25px",
+        paddingLeft: "20%",
+        paddingRight: "2%",
         paddingTop: "15px",
         paddingBottom: "15px",
       }}

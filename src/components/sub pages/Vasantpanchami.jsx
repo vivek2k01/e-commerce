@@ -32,30 +32,6 @@ import p25 from "../../assets/Vasantpanchami/p25.webp";
 import p26 from "../../assets/Vasantpanchami/p26.jpg";
 import p27 from "../../assets/Vasantpanchami/p27.jpg";
 import p28 from "../../assets/Vasantpanchami/p28.webp";
-// import p29 from "../../assets/Vasantpanchami/p29.jpg";
-// import p30 from "../../assets/Vasantpanchami/p30.jpg";
-// import p31 from "../../assets/Vasantpanchami/p31.jpg";
-// import p32 from "../../assets/Vasantpanchami/p32.jpg";
-// import p33 from "../../assets/Vasantpanchami/p33.jpg";
-// import p34 from "../../assets/Vasantpanchami/p34.jpg";
-// import p35 from "../../assets/Vasantpanchami/p35.jpg";
-// import p36 from "../../assets/Vasantpanchami/p36.jpg";
-// import p37 from "../../assets/Vasantpanchami/p37.jpg";
-// import p38 from "../../assets/Vasantpanchami/p38.jpg";
-// import p39 from "../../assets/Vasantpanchami/p39.jpg";
-// import p40 from "../../assets/Vasantpanchami/p40.jpg";
-// import p41 from "../../assets/Vasantpanchami/p41.jpg";
-// import p42 from "../../assets/Vasantpanchami/p42.jpg";
-// import p43 from "../../assets/Vasantpanchami/p43.jpg";
-// import p44 from "../../assets/Vasantpanchami/p44.jpg";
-// import p45 from "../../assets/Vasantpanchami/p45.jpg";
-// import p46 from "../../assets/Vasantpanchami/p46.jpg";
-// import p47 from "../../assets/Vasantpanchami/p47.jpg";
-// import p48 from "../../assets/Vasantpanchami/p48.jpg";
-// import p49 from "../../assets/Vasantpanchami/p49.jpg";
-// import p50 from "../../assets/Vasantpanchami/p50.jpg";
-// import p51 from "../../assets/Vasantpanchami/p51.jpg";
-// import p52 from "../../assets/Vasantpanchami/p52.jpg";
 
 const featuredProducts = [
   {
@@ -580,6 +556,7 @@ const Vasantpanchami = () => {
           justifyContent: "center",
           gap: isTablet ? "30px" : "40px",
           cursor: "pointer",
+          marginTop: "40px",
         }}
       >
         {featuredProducts.map((item) => (
