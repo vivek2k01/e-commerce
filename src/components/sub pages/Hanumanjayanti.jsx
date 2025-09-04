@@ -4,6 +4,9 @@ import amazon_logo from "../../assets/amazon_logo.jpg";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 import p1 from "../../assets/Hanumanjayanti/p1.jpg";
 import p2 from "../../assets/Hanumanjayanti/p2.jpg";
@@ -45,18 +48,6 @@ import p37 from "../../assets/Hanumanjayanti/p37.jpg";
 import p38 from "../../assets/Hanumanjayanti/p38.jpg";
 import p39 from "../../assets/Hanumanjayanti/p39.jpg";
 import p40 from "../../assets/Hanumanjayanti/p40.jpg";
-// import p41 from "../../assets/Hanumanjayanti/p41.jpg";
-// import p42 from "../../assets/Hanumanjayanti/p42.jpg";
-// import p43 from "../../assets/Hanumanjayanti/p43.jpg";
-// import p44 from "../../assets/Hanumanjayanti/p44.jpg";
-// import p45 from "../../assets/Hanumanjayanti/p45.jpg";
-// import p46 from "../../assets/Hanumanjayanti/p46.jpg";
-// import p47 from "../../assets/Hanumanjayanti/p47.jpg";
-// import p48 from "../../assets/Hanumanjayanti/p48.jpg";
-// import p49 from "../../assets/Hanumanjayanti/p49.jpg";
-// import p50 from "../../assets/Hanumanjayanti/p50.jpg";
-// import p51 from "../../assets/Hanumanjayanti/p51.jpg";
-// import p52 from "../../assets/Hanumanjayanti/p52.jpg";
 
 const featuredProducts = [
   {
@@ -435,6 +426,15 @@ const Hanumanjayanti = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [getProduct, setGetProduct] = useState([]);
   const [loading, setLoading] = useState(true);
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
 
   useEffect(() => {
     const itemsRef = ref(db, "Hanuman Jayanti");
@@ -581,6 +581,7 @@ const Hanumanjayanti = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: "none" }}
+                  onClick={(e) => handleProductAnchorClick(e, item.link)}
                 >
                   <img
                     src={item.image}
@@ -670,6 +671,7 @@ const Hanumanjayanti = () => {
                           gap: "8px",
                           justifyContent: "center",
                         }}
+                        onClick={(e) => handleProductAnchorClick(e, item.link)}
                       >
                         <span>Buy</span>
                         <img
@@ -725,6 +727,7 @@ const Hanumanjayanti = () => {
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
+              onClick={(e) => handleProductAnchorClick(e, item.link)}
             >
               <img
                 src={item.image}
@@ -790,6 +793,7 @@ const Hanumanjayanti = () => {
                       fontSize: isMobile ? "14px" : "16px",
                       gap: "8px",
                     }}
+                    onClick={(e) => handleProductAnchorClick(e, item.link)}
                   >
                     <span>Buy</span>
                     <img
@@ -807,6 +811,14 @@ const Hanumanjayanti = () => {
           </div>
         ))}
       </div>
+      {/* 🔽 ADD: reusable modal include (UI consistent) */}
+      <UserDetailsModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

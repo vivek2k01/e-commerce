@@ -3,6 +3,9 @@ import amazon_logo from "../../assets/amazon_logo.jpg";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 import p1 from "../../assets/Karwachauth/p1.jpg";
 import p2 from "../../assets/Karwachauth/p2.jpg";
@@ -45,16 +48,6 @@ import p38 from "../../assets/Karwachauth/p38.webp";
 import p39 from "../../assets/Karwachauth/p39.jpg";
 import p40 from "../../assets/Karwachauth/p40.jpg";
 // import p41 from "../../assets/Karwachauth/p41.jpg";
-// import p42 from "../../assets/Karwachauth/p42.jpg";
-// import p43 from "../../assets/Karwachauth/p43.jpg";
-// import p44 from "../../assets/Karwachauth/p44.jpg";
-// import p45 from "../../assets/Karwachauth/p45.jpg";
-// import p46 from "../../assets/Karwachauth/p46.jpg";
-// import p47 from "../../assets/Karwachauth/p47.jpg";
-// import p48 from "../../assets/Karwachauth/p48.jpg";
-// import p49 from "../../assets/Karwachauth/p49.jpg";
-// import p50 from "../../assets/Karwachauth/p50.jpg";
-// import p51 from "../../assets/Karwachauth/p51.jpg";
 
 const featuredProducts = [
   {
@@ -435,6 +428,15 @@ const Karwachauth = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [getProduct, setGetProduct] = useState([]);
   const [loading, setLoading] = useState(true);
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
 
   useEffect(() => {
     const itemsRef = ref(db, "Karwachauth");
@@ -581,6 +583,7 @@ const Karwachauth = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: "none" }}
+                  onClick={(e) => handleProductAnchorClick(e, item.link)}
                 >
                   <img
                     src={item.image}
@@ -670,6 +673,7 @@ const Karwachauth = () => {
                           gap: "8px",
                           justifyContent: "center",
                         }}
+                        onClick={(e) => handleProductAnchorClick(e, item.link)}
                       >
                         <span>Buy</span>
                         <img
@@ -725,6 +729,7 @@ const Karwachauth = () => {
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
+              onClick={(e) => handleProductAnchorClick(e, item.link)}
             >
               <img
                 src={item.image}
@@ -790,6 +795,7 @@ const Karwachauth = () => {
                       fontSize: isMobile ? "14px" : "16px",
                       gap: "8px",
                     }}
+                    onClick={(e) => handleProductAnchorClick(e, item.link)}
                   >
                     <span>Buy</span>
                     <img
@@ -807,6 +813,14 @@ const Karwachauth = () => {
           </div>
         ))}
       </div>
+      {/* 🔽 ADD: reusable modal include (UI consistent) */}
+      <UserDetailsModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

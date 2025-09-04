@@ -3,11 +3,24 @@ import amazon_logo from "../../assets/amazon_logo.jpg";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 const FeaturedProducts = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [getProduct, setGetProduct] = useState([]);
   const [loading, setLoading] = useState(true); // <-- loading state
+
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -151,6 +164,7 @@ const FeaturedProducts = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ textDecoration: "none" }}
+                onClick={(e) => handleProductAnchorClick(e, item.link)}
               >
                 <img
                   src={item.image}
@@ -240,6 +254,7 @@ const FeaturedProducts = () => {
                         gap: "8px",
                         justifyContent: "center",
                       }}
+                      onClick={(e) => handleProductAnchorClick(e, item.link)}
                     >
                       <span>Buy</span>
                       <img
@@ -258,6 +273,14 @@ const FeaturedProducts = () => {
           ))}
         </div>
       )}
+      {/* 🔽 ADD: reusable modal include (UI consistent) */}
+      <UserDetailsModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

@@ -3,6 +3,9 @@ import amazon_logo from "../../assets/amazon_logo.jpg";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 import rakhi1 from "../../assets/rakshabandhan/Rakhi1.jpg";
 import rakhi2 from "../../assets/rakshabandhan/Rakhi2.jpg";
@@ -661,6 +664,15 @@ const Rakshabandhan = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [getProduct, setGetProduct] = useState([]);
   const [loading, setLoading] = useState(true);
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
 
   useEffect(() => {
     const itemsRef = ref(db, "rakshabandhan");
@@ -753,24 +765,23 @@ const Rakshabandhan = () => {
           >
             Loading...
           </div>
+        ) : getProduct.length === 0 ? (
+          <div
+            style={{
+              textAlign: "center",
+              fontSize: "20px",
+              color: "red",
+              padding: "40px",
+              fontWeight: "bold",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px",
+            }}
+          >
+            Product Not Found <RemoveShoppingCartIcon />
+          </div>
         ) : (
-          //: getProduct.length === 0 ? (
-          // <div
-          //  style={{
-          //    textAlign: "center",
-          //    fontSize: "20px",
-          //    color: "red",
-          // padding: "40px",
-          //   fontWeight: "bold",
-          //   display: "flex",
-          //    alignItems: "center",
-          //   justifyContent: "center",
-          //    gap: "10px",
-          //  }}
-          //>
-          //  Product Not Found <RemoveShoppingCartIcon />
-          // </div>
-          //)
           <div
             style={{
               display: "flex",
@@ -808,6 +819,7 @@ const Rakshabandhan = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: "none" }}
+                  onClick={(e) => handleProductAnchorClick(e, item.link)}
                 >
                   <img
                     src={item.image}
@@ -897,6 +909,7 @@ const Rakshabandhan = () => {
                           gap: "8px",
                           justifyContent: "center",
                         }}
+                        onClick={(e) => handleProductAnchorClick(e, item.link)}
                       >
                         <span>Buy</span>
                         <img
@@ -951,6 +964,7 @@ const Rakshabandhan = () => {
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
+              onClick={(e) => handleProductAnchorClick(e, item.link)}
             >
               <img
                 src={item.image}
@@ -1016,6 +1030,7 @@ const Rakshabandhan = () => {
                       fontSize: isMobile ? "14px" : "16px",
                       gap: "8px",
                     }}
+                    onClick={(e) => handleProductAnchorClick(e, item.link)}
                   >
                     <span>Buy</span>
                     <img
@@ -1033,6 +1048,14 @@ const Rakshabandhan = () => {
           </div>
         ))}
       </div>
+      {/* 🔽 ADD: reusable modal include (UI consistent) */}
+      <UserDetailsModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

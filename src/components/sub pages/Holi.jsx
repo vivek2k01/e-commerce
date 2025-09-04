@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import amazon_logo from "../../assets/amazon_logo.jpg";
-
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 import p1 from "../../assets/holi/p1.jpg";
 import p2 from "../../assets/holi/p2.jpg";
@@ -57,14 +59,6 @@ import p49 from "../../assets/holi/p49.jpg";
 import p50 from "../../assets/holi/p50.jpg";
 import p51 from "../../assets/holi/p51.jpg";
 import p52 from "../../assets/holi/p52.jpg";
-// import p53 from "../../assets/holi/p53.jpg";
-// import p54 from "../../assets/holi/p54.webp";
-// import p55 from "../../assets/holi/p55.jpg";
-// import p56 from "../../assets/holi/p56.jpg";
-// import p57 from "../../assets/holi/p57.jpg";
-// import p58 from "../../assets/holi/p58.jpg";
-// import p59 from "../../assets/holi/p59.jpg";
-// import p60 from "../../assets/holi/p60.jpg";
 
 const featuredProducts = [
   {
@@ -535,29 +529,20 @@ const featuredProducts = [
     icon: amazon_logo,
     link: "https://amzn.to/45hA7SV",
   },
-  // {
-  //   id: "",
-  //   image: "",
-  //   heading1: "",
-  //   heading2: "",
-  //   text: "",
-  //   icon: amazon_logo,
-  //   link: "",
-  // },
-  // {
-  //   id: "",
-  //   image: "",
-  //   heading1: "",
-  //   heading2: "",
-  //   text: "",
-  //   icon: amazon_logo,
-  //   link: "",
-  // },
 ];
 const Holi = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [getProduct, setGetProduct] = useState([]);
   const [loading, setLoading] = useState(true);
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
 
   useEffect(() => {
     const itemsRef = ref(db, "holi");
@@ -704,6 +689,7 @@ const Holi = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: "none" }}
+                  onClick={(e) => handleProductAnchorClick(e, item.link)}
                 >
                   <img
                     src={item.image}
@@ -793,6 +779,7 @@ const Holi = () => {
                           gap: "8px",
                           justifyContent: "center",
                         }}
+                        onClick={(e) => handleProductAnchorClick(e, item.link)}
                       >
                         <span>Buy</span>
                         <img
@@ -848,6 +835,7 @@ const Holi = () => {
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
+              onClick={(e) => handleProductAnchorClick(e, item.link)}
             >
               <img
                 src={item.image}
@@ -913,6 +901,7 @@ const Holi = () => {
                       fontSize: isMobile ? "14px" : "16px",
                       gap: "8px",
                     }}
+                    onClick={(e) => handleProductAnchorClick(e, item.link)}
                   >
                     <span>Buy</span>
                     <img
@@ -930,6 +919,14 @@ const Holi = () => {
           </div>
         ))}
       </div>
+      {/* 🔽 ADD: reusable modal include (UI consistent) */}
+      <UserDetailsModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

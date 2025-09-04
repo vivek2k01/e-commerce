@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import amazon_logo from "../../assets/amazon_logo.jpg";
 import { db } from "../../firebase"; // adjust path to your firebase.js
 import { ref, onValue } from "firebase/database";
-
 import fetchFirebaseProducts from "../Admin/Festivalpages/FetchFirebaseProducts";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 import p1 from "../../assets/Ram_navmi/p1.jpg";
 import p2 from "../../assets/Ram_navmi/p2.jpg";
@@ -20,17 +22,6 @@ import p12 from "../../assets/Ram_navmi/p12.jpg";
 import p13 from "../../assets/Ram_navmi/p13.jpg";
 import p14 from "../../assets/Ram_navmi/p14.jpg";
 import p15 from "../../assets/Ram_navmi/p15.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
-// import p1 from "../../assets/Ram_navmi/p1.jpg";
 
 const featuredProducts = [
   {
@@ -200,6 +191,16 @@ const Ramnavmi = () => {
 
   const isMobile = windowWidth <= 768;
   const isTablet = windowWidth > 768 && windowWidth <= 1024;
+
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
   // const ProductDisplay => ({ isMobile, isTablet }) => {
 
   useEffect(() => {
@@ -304,6 +305,7 @@ const Ramnavmi = () => {
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
+              onClick={(e) => handleProductAnchorClick(e, item.link)}
             >
               <img
                 src={item.image}
@@ -369,6 +371,7 @@ const Ramnavmi = () => {
                       fontSize: isMobile ? "14px" : "16px",
                       gap: "8px",
                     }}
+                    onClick={(e) => handleProductAnchorClick(e, item.link)}
                   >
                     <span>Buy</span>
                     <img
@@ -425,6 +428,7 @@ const Ramnavmi = () => {
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
+              onClick={(e) => handleProductAnchorClick(e, item.link)}
             >
               <img
                 src={item.image}
@@ -514,6 +518,7 @@ const Ramnavmi = () => {
                       gap: "8px",
                       justifyContent: "center",
                     }}
+                    onClick={(e) => handleProductAnchorClick(e, item.link)}
                   >
                     <span>Buy</span>
                     <img
@@ -531,6 +536,14 @@ const Ramnavmi = () => {
           </div>
         ))}
       </div>
+      {/* 🔽 ADD: reusable modal include (UI consistent) */}
+      <UserDetailsModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

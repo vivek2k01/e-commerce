@@ -3,6 +3,9 @@ import amazon_logo from "../../assets/amazon_logo.jpg";
 import { db } from "../../firebase";
 import { ref, onValue } from "firebase/database";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
 
 import p1 from "../../assets/Diwali/p1.jpg";
 import p2 from "../../assets/Diwali/p2.webp";
@@ -1129,38 +1132,21 @@ const featuredProducts = [
     icon: amazon_logo,
     link: "https://amzn.to/4opAwvh",
   },
-  // {
-  //   id: "",
-  //   image: "",
-  //   heading1: "",
-  //   heading2: "",
-  //   text: "...",
-  //   icon: amazon_logo,
-  //   link: "",
-  // },
-  // {
-  //   id: "",
-  //   image: "",
-  //   heading1: "",
-  //   heading2: "",
-  //   text: "...",
-  //   icon: amazon_logo,
-  //   link: "",
-  // },
-  // {
-  //   id: "",
-  //   image: "",
-  //   heading1: "",
-  //   heading2: "",
-  //   text: "...",
-  //   icon: amazon_logo,
-  //   link: "",
-  // },
 ];
 const Diwali = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [getProduct, setGetProduct] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
 
   useEffect(() => {
     const itemsRef = ref(db, "diwali");
@@ -1180,7 +1166,6 @@ const Diwali = () => {
         }));
 
         const sorted = formatted.sort((a, b) => b.id - a.id);
-
         setGetProduct(sorted);
       } else {
         setGetProduct([]);
@@ -1307,6 +1292,7 @@ const Diwali = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: "none" }}
+                  onClick={(e) => handleProductAnchorClick(e, item.link)}
                 >
                   <img
                     src={item.image}
@@ -1396,6 +1382,7 @@ const Diwali = () => {
                           gap: "8px",
                           justifyContent: "center",
                         }}
+                        onClick={(e) => handleProductAnchorClick(e, item.link)}
                       >
                         <span>Buy</span>
                         <img
@@ -1451,6 +1438,7 @@ const Diwali = () => {
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
+              onClick={(e) => handleProductAnchorClick(e, item.link)}
             >
               <img
                 src={item.image}
@@ -1516,6 +1504,7 @@ const Diwali = () => {
                       fontSize: isMobile ? "14px" : "16px",
                       gap: "8px",
                     }}
+                    onClick={(e) => handleProductAnchorClick(e, item.link)}
                   >
                     <span>Buy</span>
                     <img
@@ -1533,6 +1522,14 @@ const Diwali = () => {
           </div>
         ))}
       </div>
+      {/* 🔽 ADD: reusable modal include (UI consistent) */}
+      <UserDetailsModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };
