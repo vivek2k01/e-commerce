@@ -112,6 +112,8 @@ const UserDetailsModal = ({
               marginTop: "15px",
               cursor: "pointer",
               fontWeight: "bold",
+              width: "50%",
+              fontSize: "16px",
             }}
           >
             Submit

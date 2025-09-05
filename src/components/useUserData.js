@@ -1,7 +1,7 @@
 // src/hooks/useUserData.js
 import { useState } from "react";
 import { db } from "../firebase";
-import { ref, push, get, child } from "firebase/database";
+import { ref, push, get } from "firebase/database";
 
 export const useUserData = () => {
   const [showModal, setShowModal] = useState(false);

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import backphoto1 from "../../assets/backphoto01.jpeg";
-import somnath1 from "../../assets/somnath1.jpg";
-import somnath2 from "../../assets/somnath2.jpg";
-import somnath3 from "../../assets/somnath3.jpg";
+// 🔽 ADD: reusable hook + modal
+import { useUserData } from "../../components/useUserData";
+import UserDetailsModal from "../UserDetailsModal";
+
+import { db } from "../../firebase";
+import { ref, onValue } from "firebase/database";
+
 import shivratri from "../../assets/mahashivratri1.jpg";
 import ganeshchaturthi from "../../assets/ganeshchaturthi1.jpg";
 import navdurgapooja from "../../assets/nav_durgapooja.jpg";
@@ -260,11 +263,13 @@ const festival = [
   },
 ];
 
-const images = [backphoto1, somnath1, somnath2, somnath3];
+// const images = [backphoto1, somnath1, somnath2, somnath3];
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [images, setImages] = useState([]);
+  const [current, setCurrent] = useState(0);
 
   // alert//
   useEffect(() => {
@@ -279,13 +284,41 @@ const Home = () => {
   }, []);
 
   // ended
+  // 🔽 ADD: hook state/actions
+  const {
+    showModal,
+    setShowModal,
+    formData,
+    setFormData,
+    handleProductAnchorClick,
+    handleSubmit,
+  } = useUserData();
+
+  // Firebase se images laana
+  useEffect(() => {
+    const imgRef = ref(db, "coverPhotos");
+    onValue(imgRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const imgArray = Object.entries(data).map(([id, item]) => ({
+          id,
+          url: item.url,
+          link: item.link,
+        }));
+        setImages(imgArray);
+      } else {
+        setImages([]);
+      }
+    });
+  }, []);
 
   useEffect(() => {
+    if (images.length === 0) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length);
     }, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [images]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -300,8 +333,6 @@ const Home = () => {
     if (windowWidth < 1024) return 3;
     return 5;
   };
-
-  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -319,19 +350,37 @@ const Home = () => {
     setCurrent((prev) => (prev - 1 + history.length) % history.length);
   };
 
+  // if (images.length === 0) {
+  //   return <p style={{ textAlign: "center" }}>No images found...</p>;
+  // }
+
   return (
     <div>
-      {/* Slider */}
-      <img
-        src={images[currentSlide]}
-        alt="Slider"
-        style={{
-          width: "100%",
-          height: windowWidth < 768 ? "300px" : "600px",
-          objectFit: "cover",
-          transition: "opacity 1s ease-in-out",
-        }}
-      />
+      {images.length === 0 ? (
+        <p style={{ textAlign: "center" }}></p>
+      ) : (
+        <a
+          href={images[currentSlide]?.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) =>
+            handleProductAnchorClick(e, images[currentSlide]?.link)
+          }
+        >
+          <img
+            src={images[currentSlide]?.url}
+            alt="Slider"
+            style={{
+              width: "100%",
+              height: "auto",
+              maxHeight: "600px",
+              objectFit: "cover",
+              transition: "opacity 1s ease-in-out",
+              cursor: images[currentSlide]?.link ? "pointer" : "default",
+            }}
+          />
+        </a>
+      )}
 
       {/* Festival Title */}
       <SectionTitle title="Hindu Festival's" windowWidth={windowWidth} />
@@ -465,6 +514,7 @@ const Home = () => {
                 display: "block",
                 textDecoration: "none",
               }}
+              onClick={(e) => handleProductAnchorClick(e, item.link)}
             >
               <div
                 style={{
@@ -571,6 +621,15 @@ const Home = () => {
             </div>
           </div>
         ))}
+
+        {/* 🔽 ADD: reusable modal include (UI consistent) */}
+        <UserDetailsModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+        />
 
         {/* Navigation Buttons */}
         <div

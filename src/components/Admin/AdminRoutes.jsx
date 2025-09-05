@@ -35,6 +35,8 @@ import Admindhoop from "./Categories/Admindhoop";
 import Sidebar from "./Sidebar";
 import AdminFeaturedProducts from "./AdminFeaturedProducts";
 import AdminGetUserData from "./AdminGetUserData";
+import Admincoverphoto from "./Admincoverphoto";
+import AdminGetInquiry from "./AdminGetInquiry";
 
 const AdminRoutes = () => {
   return (
@@ -326,6 +328,26 @@ const AdminRoutes = () => {
           element={
             <ProtectedRoute>
               <AdminGetUserData />
+              <Sidebar />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin-cover-photo"
+          element={
+            <ProtectedRoute>
+              <Admincoverphoto />
+              <Sidebar />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin-Get-Inquiry"
+          element={
+            <ProtectedRoute>
+              <AdminGetInquiry />
               <Sidebar />
             </ProtectedRoute>
           }

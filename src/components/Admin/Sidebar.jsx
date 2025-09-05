@@ -9,7 +9,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import LogoutIcon from "@mui/icons-material/Logout";
-import DiamondIcon from "@mui/icons-material/Diamond";
 import CategoryIcon from "@mui/icons-material/Category";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import FestivalIcon from "@mui/icons-material/Festival";
@@ -26,6 +25,8 @@ import Button from "@mui/material/Button";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import FolderSharedIcon from "@mui/icons-material/FolderShared";
+import ImageIcon from "@mui/icons-material/Image";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 const drawerWidth = 280;
 
@@ -72,29 +73,6 @@ export default function Sidebar() {
         },
       }}
     >
-      {/* <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "20px",
-          marginTop: "10px",
-        }}
-      >
-        <img
-          src={logo}
-          alt="ganesh"
-          style={{
-            height: "70px",
-            width: "70px",
-            borderRadius: "50%",
-            cursor: "pointer",
-          }}
-        />
-        <div style={{ fontFamily: "Georgia, serif" }}>
-          <h2>Admin</h2>
-        </div>
-      </div> */}
       <Box sx={{ overflow: "auto", paddingTop: "10px" }}>
         <List>
           {/* Hindu Festival's */}
@@ -214,13 +192,13 @@ export default function Sidebar() {
             </List>
           </Collapse>
 
-          {/* Most Valuable Product */}
+          {/* Cover Photo */}
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate(`/admin-cover-photo`)}>
               <ListItemIcon>
-                <DiamondIcon style={{ color: "#fff" }} />
+                <ImageIcon style={{ color: "#fff" }} />
               </ListItemIcon>
-              <ListItemText primary="Most Valuable Product" />
+              <ListItemText primary="Cover Photo" />
             </ListItemButton>
           </ListItem>
 
@@ -232,6 +210,15 @@ export default function Sidebar() {
                 <FolderSharedIcon style={{ color: "#fff" }} />
               </ListItemIcon>
               <ListItemText primary="User Data" />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate(`/admin-Get-Inquiry`)}>
+              <ListItemIcon>
+                <MailOutlineIcon style={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ListItemText primary="Inquiry" />
             </ListItemButton>
           </ListItem>
         </List>
