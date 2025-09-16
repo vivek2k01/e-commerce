@@ -183,7 +183,7 @@ const Admingifts = () => {
       style={{
         paddingLeft: "20%",
         paddingRight: "2%",
-        paddingTop: "15px",
+        paddingTop: "35px",
         paddingBottom: "15px",
       }}
     >

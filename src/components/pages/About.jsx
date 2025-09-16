@@ -25,6 +25,7 @@ const About = () => {
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
           maxWidth: "900px",
           width: "90%",
+          marginTop: "70px",
         }}
       >
         <h1

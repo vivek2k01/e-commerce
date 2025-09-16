@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const titles = {
+  // all user Routes
   "/": "Home | ShrijiiMart",
   "/FeaturedProducts": "Featured Products | ShrijiiMart",
   "/categories": "Categories | ShrijiiMart",
@@ -26,7 +27,7 @@ const titles = {
   "/Murti": "Murti | ShrijiiMart",
   "/Aagarbatti": "Agarbatti | ShrijiiMart",
   "/Books": "Books | ShrijiiMart",
-  "/Chandandhup": "Chandan Dhoop | ShrijiiMart",
+  "/Chandandhup": "Dhoop | ShrijiiMart",
   "/Cloth": "Cloth | ShrijiiMart",
   "/Gifts": "Gifts | ShrijiiMart",
   "/ReligiousJewelry": "Religious Jewelry | ShrijiiMart",
@@ -39,7 +40,7 @@ const titles = {
   "/TechPro": "Tech Products | ShrijiiMart",
 
   // Admin Routes
-  "/login": "Login | ShrijiiMart",
+  "/adminlogin": "Admin Login | ShrijiiMart",
   "/Dashboard": "Dashboard | ShrijiiMart",
   "/admin-maha-shivratri": "Admin Maha Shivratri | ShrijiiMart",
   "/admin-ganesh-chaturthi": "Admin Ganesh Chaturthi | ShrijiiMart",
@@ -75,7 +76,7 @@ const titles = {
   "/admin-GetUserData": "Admin User Data | ShrijiiMart",
   "/admin-cover-photo": "Admin Cover Photo | ShrijiiMart",
   "/admin-Get-Inquiry": "Admin Get Inquiry | ShrijiiMart",
-  "*": "ShrijiiMart",
+  "*": "404 not Found | ShrijiiMart",
 };
 
 export default function RouteTitleHandler() {

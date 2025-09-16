@@ -9,7 +9,7 @@ const Dashboard = () => {
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        minHeight: "100vh",
+        minHeight: "80vh",
       }}
     >
       {/* Sidebar */}

@@ -239,7 +239,7 @@ const Ramnavmi = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          margin: "20px 0",
+          margin: "45px 0",
           textAlign: "center",
           gap: "20px",
         }}

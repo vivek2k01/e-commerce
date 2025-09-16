@@ -69,7 +69,9 @@ export default function Sidebar() {
           boxSizing: "border-box",
           background: "#4B2D1A",
           color: "#fff",
-          marginTop: "90px",
+          marginTop: "157.5px",
+          height: `calc(100vh - 164px)`, // <-- Important
+          overflowY: "auto",
         },
       }}
     >

@@ -53,7 +53,7 @@ const Contact = () => {
     <div
       style={{
         maxWidth: "600px",
-        margin: "40px auto",
+        margin: "45px auto",
         padding: "20px",
         fontFamily: "Georgia, serif",
       }}

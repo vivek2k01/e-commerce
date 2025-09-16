@@ -158,7 +158,7 @@ const Categories = () => {
   ];
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px", marginTop: "75px" }}>
       <div
         style={{
           display: "flex",

@@ -377,6 +377,7 @@ const Home = () => {
               objectFit: "cover",
               transition: "opacity 1s ease-in-out",
               cursor: images[currentSlide]?.link ? "pointer" : "default",
+              marginTop: "57px",
             }}
           />
         </a>
