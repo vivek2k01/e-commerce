@@ -10,6 +10,7 @@ import AdminRoutes from "./components/Admin/AdminRoutes";
 import UserRoutes from "./components/UserRoutes";
 import Adminlogin from "./components/Admin/Adminlogin";
 import Footer from "./components/Footer"; // apna footer import karo
+import RouteTitleHandler from "./components/RouteTitleHandler";
 
 const Layout = () => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const Layout = () => {
 const App = () => {
   return (
     <Router>
+      <RouteTitleHandler />
       <Layout />
     </Router>
   );

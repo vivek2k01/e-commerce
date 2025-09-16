@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/LOGO.png";
 import { NavLink } from "react-router-dom";
-import GlobalSearch from "./GlobalSearch";
 
 const Topbar = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -79,16 +78,18 @@ const Topbar = () => {
           alignItems: "center",
         }}
       >
-        <img
-          src={logo}
-          alt="logo"
-          style={{
-            height: "70px",
-            width: "70px",
-            borderRadius: "50%",
-            cursor: "pointer",
-          }}
-        />
+        <a href="/">
+          <img
+            src={logo}
+            alt="logo"
+            style={{
+              height: "70px",
+              width: "70px",
+              borderRadius: "50%",
+              cursor: "pointer",
+            }}
+          />
+        </a>
 
         <div></div>
         {isMobile ? (

@@ -221,7 +221,7 @@ const festival = [
     id: "7",
     image: krishjanmastmi,
     heading: "Krishna Janmashtami",
-    link: "/Krishna_Janmashtami",
+    link: "/Krishna_janmashtami",
   },
   { id: "8", image: rakhi, heading: "Rakhsabandhan", link: "/Rakshabandhan" },
   { id: "9", image: teej, heading: "Teej", link: "/Teej" },

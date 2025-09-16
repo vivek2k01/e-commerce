@@ -1,9 +1,9 @@
 import React from "react";
-import logo from "../assets/logo.jpg";
-import fb from "../assets/fb.svg";
-import ig from "../assets/ig.svg";
-import x from "../assets/x.svg";
+import logo from "../assets/LOGO.png";
 import { NavLink } from "react-router-dom";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 const Footer = () => {
   return (
@@ -45,14 +45,14 @@ const Footer = () => {
               minWidth: "250px",
             }}
           >
-            <img
-              src={logo}
-              alt="Logo"
-              style={{ width: "80px", height: "80px", borderRadius: "50%" }}
-            />
-            <h2 style={{ fontSize: "24px", margin: "15px 0" }}>
-              Shri Somnath Gujrat
-            </h2>
+            <a href="/">
+              <img
+                src={logo}
+                alt="Logo"
+                style={{ width: "80px", height: "80px", borderRadius: "50%" }}
+              />
+            </a>
+            <h2 style={{ fontSize: "24px", margin: "15px 0" }}>Shrijii Mart</h2>
             <div
               style={{
                 display: "flex",
@@ -66,21 +66,21 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={ig} alt="Instagram" style={{ width: "45px" }} />
+                <InstagramIcon sx={{ color: "white", fontSize: "40px" }} />
               </a>
               <a
-                href="https://www.facebook.com/"
+                href="https://www.facebook.com/share/1AxwmpRmSM/?mibextid=wwXIfr"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={fb} alt="Facebook" style={{ width: "45px" }} />
+                <FacebookIcon sx={{ color: "white", fontSize: "40px" }} />
               </a>
               <a
-                href="https://www.threads.net/"
+                href="https://www.threads.com/@shri.somnath.gujrat?igshid=NTc4MTIwNjQ2YQ=="
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={x} alt="Threads" style={{ width: "45px" }} />
+                <TwitterIcon sx={{ color: "white", fontSize: "40px" }} />
               </a>
             </div>
           </div>

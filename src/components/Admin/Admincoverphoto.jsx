@@ -9,7 +9,6 @@ import TextField from "@mui/material/TextField";
 import { db } from "../../firebase";
 import { ref, push, onValue, remove } from "firebase/database";
 
-// Cloudinary config
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dzvvvglon/image/upload";
 const UPLOAD_PRESET = "e-commerce";
 
@@ -20,7 +19,10 @@ const Admincoverphoto = () => {
   const [link, setLink] = useState("");
   const [file, setFile] = useState(null);
 
-  // Get uploaded images from Firebase in real time
+  // New states for delete confirmation modal
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [selectedImageId, setSelectedImageId] = useState(null);
+
   useEffect(() => {
     const imgRef = ref(db, "coverPhotos");
     onValue(imgRef, (snapshot) => {
@@ -30,7 +32,6 @@ const Admincoverphoto = () => {
           id,
           ...value,
         }));
-        // latest image first
         setImages(imgArray.sort((a, b) => b.createdAt - a.createdAt));
       } else {
         setImages([]);
@@ -38,17 +39,13 @@ const Admincoverphoto = () => {
     });
   }, []);
 
-  // function to upload image + link
   const handleSubmit = async () => {
     if (!file || !link) {
       alert("Please upload an image and enter a link!");
       return;
     }
-
     setLoading(true);
-
     try {
-      // 1. Upload to Cloudinary
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", UPLOAD_PRESET);
@@ -57,15 +54,13 @@ const Admincoverphoto = () => {
         method: "POST",
         body: formData,
       });
-
       const data = await response.json();
       if (data.secure_url) {
-        const imageUrl = data.secure_url;
-
-        // 2. Save to Firebase
-        const imgRef = ref(db, "coverPhotos");
-        await push(imgRef, { url: imageUrl, link, createdAt: Date.now() });
-
+        await push(ref(db, "coverPhotos"), {
+          url: data.secure_url,
+          link,
+          createdAt: Date.now(),
+        });
         setLoading(false);
         setOpen(false);
         setFile(null);
@@ -81,13 +76,22 @@ const Admincoverphoto = () => {
     }
   };
 
-  // function to delete image
-  const handleDelete = async (id) => {
+  // Function to actually delete image
+  const handleDelete = async () => {
+    if (!selectedImageId) return;
     try {
-      await remove(ref(db, `coverPhotos/${id}`));
+      await remove(ref(db, `coverPhotos/${selectedImageId}`));
+      setDeleteOpen(false);
+      setSelectedImageId(null);
     } catch (error) {
       console.error("Error deleting image:", error);
     }
+  };
+
+  // Open confirmation modal
+  const confirmDelete = (id) => {
+    setSelectedImageId(id);
+    setDeleteOpen(true);
   };
 
   return (
@@ -146,11 +150,7 @@ const Admincoverphoto = () => {
         {images.map((img) => (
           <div
             key={img.id}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "30px",
-            }}
+            style={{ display: "flex", alignItems: "center", gap: "30px" }}
           >
             <img
               src={img.url}
@@ -166,7 +166,7 @@ const Admincoverphoto = () => {
             <Button
               variant="outlined"
               color="error"
-              onClick={() => handleDelete(img.id)}
+              onClick={() => confirmDelete(img.id)}
               startIcon={<DeleteIcon />}
               sx={{
                 borderColor: "red",
@@ -200,8 +200,6 @@ const Admincoverphoto = () => {
           }}
         >
           <Typography variant="h6">Add New Cover Photo</Typography>
-
-          {/* Link Input */}
           <TextField
             label="Enter Link"
             variant="outlined"
@@ -209,18 +207,45 @@ const Admincoverphoto = () => {
             value={link}
             onChange={(e) => setLink(e.target.value)}
           />
-
-          {/* Image Upload */}
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setFile(e.target.files[0])}
           />
-
-          {/* Submit Button */}
           <Button variant="contained" onClick={handleSubmit} disabled={loading}>
             {loading ? "Uploading..." : "Submit"}
           </Button>
+        </Box>
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal open={deleteOpen} onClose={() => setDeleteOpen(false)}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 300,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            borderRadius: "10px",
+            p: 3,
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h6">Are you sure you want to delete?</Typography>
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Button variant="contained" color="error" onClick={handleDelete}>
+              Yes, Delete
+            </Button>
+            <Button variant="outlined" onClick={() => setDeleteOpen(false)}>
+              Cancel
+            </Button>
+          </Box>
         </Box>
       </Modal>
     </div>
