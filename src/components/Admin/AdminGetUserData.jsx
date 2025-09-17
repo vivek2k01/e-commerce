@@ -156,7 +156,7 @@ const AdminGetUserData = () => {
         fontFamily: "Arial, sans-serif",
         paddingLeft: "20%",
         paddingRight: "2%",
-        paddingTop: "35px",
+        paddingTop: "50px",
         paddingBottom: "15px",
       }}
     >
